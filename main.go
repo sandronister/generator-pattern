@@ -16,7 +16,11 @@ func getTitle(urls ...string) <-chan string {
 			if err != nil {
 				panic(err)
 			}
-			html, _ := io.ReadAll(resp.Body)
+			html, err := io.ReadAll(resp.Body)
+
+			if err != nil {
+				panic(err)
+			}
 
 			r, _ := regexp.Compile("<title>(.*?)</title>")
 			c <- r.FindStringSubmatch(string(html))[1]
@@ -28,7 +32,7 @@ func getTitle(urls ...string) <-chan string {
 
 func main() {
 	t1 := getTitle("https://www.google.com", "https://www.bing.com")
-	t2 := getTitle("https://www.amazon.com.br", "https://www.youtube.com")
+	t2 := getTitle("https://www.apple.com/br/", "https://www.youtube.com")
 
 	fmt.Println("Primeiro", <-t1, "|", <-t2)
 	fmt.Println("Segundo", <-t1, "|", <-t2)
