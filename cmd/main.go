@@ -14,4 +14,9 @@ func main() {
 	)
 	fmt.Println(<-c, "|", <-c)
 	fmt.Println(<-c, "|", <-c)
+	fmt.Println("--------------------------")
+
+	best := request.GetBest("https://www.google.com", "https://www.bing.com", "https://www.apple.com/br/", "https://www.youtube.com")
+
+	fmt.Println("O melhor de todos foi:", best)
 }
