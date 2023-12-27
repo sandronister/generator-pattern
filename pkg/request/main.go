@@ -1,13 +1,12 @@
-package main
+package request
 
 import (
-	"fmt"
 	"io"
 	"net/http"
 	"regexp"
 )
 
-func getTitle(urls ...string) <-chan string {
+func GetTitle(urls ...string) <-chan string {
 	c := make(chan string)
 
 	for _, url := range urls {
@@ -28,12 +27,4 @@ func getTitle(urls ...string) <-chan string {
 
 	}
 	return c
-}
-
-func main() {
-	t1 := getTitle("https://www.google.com", "https://www.bing.com")
-	t2 := getTitle("https://www.apple.com/br/", "https://www.youtube.com")
-
-	fmt.Println("Primeiro", <-t1, "|", <-t2)
-	fmt.Println("Segundo", <-t1, "|", <-t2)
 }
